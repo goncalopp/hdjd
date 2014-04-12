@@ -52,7 +52,19 @@ How To Run
 ----------
 
 Also make sure your user can read and write to raw USB devices.
-See [this Mixxx wiki page](http://mixxx.org/wiki/doku.php/hercules_dj_control_mp3_e2#usb_hid) for how to do this with udev-based systems (almost every Linux distribution).
+
+The following are instructions for udev-based systems (almost every Linux distribution).
+
+  - Create the file `/etc/udev/rules.d/hercules-usb.rules` with the following content:
+
+    `SUBSYSTEM=="usb_device", SYSFS{idVendor}=="06f8", MODE="0666"
+    SUBSYSTEM=="usb", ATTRS{idVendor}=="06f8", MODE="0666"`
+
+  - Restart udev: 
+
+    `sudo /etc/init.d/udev restart`
+
+See [this Mixxx wiki page](http://mixxx.org/wiki/doku.php/hercules_dj_control_mp3_e2#usb_hid) for more information.
 
 Currently, the driver must be started **after** you plug in a device.
 Just run `./hdjd` and it will tell you what it found.
